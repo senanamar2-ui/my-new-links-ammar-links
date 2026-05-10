@@ -1,137 +1,44 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>STU-AMAR 3D LUXURY</title>
-    
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark: #050505;
-        }
+        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .container { width: 150px; height: 200px; perspective: 1500px; }
+        .gallery { width: 100%; height: 100%; position: absolute; transform-style: preserve-3d; animation: rotate 20s linear infinite; }
+        .gallery div { position: absolute; width: 150px; height: 200px; border: 2px solid gold; border-radius: 8px; overflow: hidden; }
+        
+        img { width: 100%; height: 100%; object-fit: cover; background: #222; }
 
-        body {
-            background-color: var(--dark);
-            color: white;
-            margin: 0;
-            font-family: sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        /* توزيع 10 صور بمسافة آمنة 250px */
+        .gallery div:nth-child(1)  { transform: rotateY(0deg)   translateZ(250px); }
+        .gallery div:nth-child(2)  { transform: rotateY(36deg)  translateZ(250px); }
+        .gallery div:nth-child(3)  { transform: rotateY(72deg)  translateZ(250px); }
+        .gallery div:nth-child(4)  { transform: rotateY(108deg) translateZ(250px); }
+        .gallery div:nth-child(5)  { transform: rotateY(144deg) translateZ(250px); }
+        .gallery div:nth-child(6)  { transform: rotateY(180deg) translateZ(250px); }
+        .gallery div:nth-child(7)  { transform: rotateY(216deg) translateZ(250px); }
+        .gallery div:nth-child(8)  { transform: rotateY(252deg) translateZ(250px); }
+        .gallery div:nth-child(9)  { transform: rotateY(288deg) translateZ(250px); }
+        .gallery div:nth-child(10) { transform: rotateY(324deg) translateZ(250px); }
 
-        header {
-            padding: 15px;
-            background: #111;
-            text-align: center;
-            border-bottom: 2px solid var(--gold);
-        }
-
-        .stage {
-            flex: 1;
-            position: relative;
-            perspective: 1200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cylinder {
-            width: 200px;
-            height: 300px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s linear;
-        }
-
-        .panel {
-            position: absolute;
-            width: 200px;
-            height: 300px;
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            background: #222;
-            overflow: hidden;
-        }
-
-        .panel img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* توزيع دقيق لـ 8 لوحات */
-        .panel:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
-        .panel:nth-child(2) { transform: rotateY(45deg) translateZ(300px); }
-        .panel:nth-child(3) { transform: rotateY(90deg) translateZ(300px); }
-        .panel:nth-child(4) { transform: rotateY(135deg) translateZ(300px); }
-        .panel:nth-child(5) { transform: rotateY(180deg) translateZ(300px); }
-        .panel:nth-child(6) { transform: rotateY(225deg) translateZ(300px); }
-        .panel:nth-child(7) { transform: rotateY(270deg) translateZ(300px); }
-        .panel:nth-child(8) { transform: rotateY(315deg) translateZ(300px); }
-
-        #upload-btn {
-            padding: 15px 30px;
-            background: var(--gold);
-            color: black;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 100;
-        }
+        @keyframes rotate { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
     </style>
 </head>
 <body>
-
-<header>
-    <h2 style="color:var(--gold); margin:0;">STU-AMAR 3D PRO</h2>
-</header>
-
-<div class="stage">
-    <input type="file" id="file-input" accept="image/*" multiple style="display:none;">
-    <button id="upload-btn" onclick="document.getElementById('file-input').click()">إضافة 8 صور لبدء العرض</button>
-
-    <div class="cylinder" id="cylinder" style="display:none;">
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
-        <div class="panel"><img></div>
+    <div class="container">
+        <div class="gallery">
+            <div><img src="1.jpg"></div>
+            <div><img src="2.jpg"></div>
+            <div><img src="3.jpg"></div>
+            <div><img src="4.jpg"></div>
+            <div><img src="5.jpg"></div>
+            <div><img src="6.jpg"></div>
+            <div><img src="7.jpg"></div>
+            <div><img src="8.jpg"></div>
+            <div><img src="9.jpحg"></div>
+            <div><img src="10.jpg"></div>
+        </div>
     </div>
-</div>
-
-<script>
-    const fileInput = document.getElementById('file-input');
-    const cylinder = document.getElementById('cylinder');
-    const uploadBtn = document.getElementById('upload-btn');
-    const imgs = document.querySelectorAll('.panel img');
-    let rotation = 0;
-
-    fileInput.onchange = function() {
-        const files = Array.from(this.files);
-        if(files.length >= 1) {
-            uploadBtn.style.display = "none";
-            cylinder.style.display = "block";
-            
-            files.forEach((file, i) => {
-                if (i < 8) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => { imgs[i].src = e.target.result; };
-                    reader.readAsDataURL(file);
-                }
-            });
-            animate();
-        }
-    };
-
-    function animate() {
-        rotation += 0.5;
-        cylinder.style.transform = `rotateY(${rotation}deg)`;
-        requestAnimationFrame(animate);
-    }
-</script>
-
 </body>
 </html>
